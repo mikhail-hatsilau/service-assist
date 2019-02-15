@@ -1,0 +1,3 @@
+# Ignore generated prisma files
+src/generated
+node_modules

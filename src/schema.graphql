@@ -1,0 +1,42 @@
+type Query {
+    users: [User!]!
+    user(id: ID!): User
+}
+
+type Mutation {
+    # auth operations
+    signUp(
+        email: String!,
+        password: String!,
+        firstName: String!,
+        lastName: String!,
+        birthday: String!,
+        role: String!
+    ): AuthPayload
+    login(email: String!, password: String!): AuthPayload
+
+    # user operations
+    createUser(firstName: String!, lastName: String!, birthday: String!, type: String!, email: String!): User!
+    updateUser(id: ID!, firstName: String, lastName: String, birthday: String, type: String): User!
+}
+
+type User {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    birthday: String!
+    role: String!
+    email: String!
+    rating: Float!
+    labels: [Label!]!
+}
+
+type Label {
+    id: ID!
+    title: String!
+}
+
+type AuthPayload {
+    token: String!
+    user: User!
+}
