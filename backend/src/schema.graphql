@@ -1,6 +1,7 @@
 type Query {
     users: [User!]!
     user(id: ID!): User
+    currentUser: User!
 }
 
 type Mutation {
@@ -11,13 +12,13 @@ type Mutation {
         firstName: String!,
         lastName: String!,
         birthday: String!,
-        role: String!
+        role: SignUpRolesEnum!
     ): AuthPayload
     login(email: String!, password: String!): AuthPayload
 
     # user operations
-    createUser(firstName: String!, lastName: String!, birthday: String!, type: String!, email: String!): User!
-    updateUser(id: ID!, firstName: String, lastName: String, birthday: String, type: String): User!
+    createUser(firstName: String!, lastName: String!, birthday: String!, role: CreateRolesEnum!, email: String!): User!
+    updateUser(id: ID!, firstName: String, lastName: String, birthday: String, role: CreateRolesEnum): User!
 }
 
 type User {
@@ -39,4 +40,15 @@ type Label {
 type AuthPayload {
     token: String!
     user: User!
+}
+
+enum CreateRolesEnum {
+    admin
+    client
+    worker
+}
+
+enum SignUpRolesEnum {
+    client
+    worker
 }

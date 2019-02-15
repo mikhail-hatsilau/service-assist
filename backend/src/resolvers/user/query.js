@@ -6,7 +6,11 @@ const userQueryResolver = {
     user: roleAccess((parent, args, context) => {
         const { id } = args;
         return context.prisma.user({ id });
-    }, [ROLES.CLIENT, ROLES.WORKER, ROLES.ADMIN]),
+    }, [ROLES.ADMIN]),
+    currentUser: roleAccess((parent, args, context) => {
+        const { request: { user }, prisma } = context;
+        return prisma.user({ id: user.id });
+    }, [ROLES.ADMIN, ROLES.CLIENT, ROLES.WORKER]),
 };
 
 module.exports = {
